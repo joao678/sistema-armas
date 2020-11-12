@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Tutorial</h1>
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+    
+  <mat-form-field *ngIf="!isNovo">
+    <mat-label>Id</mat-label>
+    <input disabled matInput [(ngModel)]="pessoa.id">
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+    <mat-label>Título</mat-label>
+    <input matInput [(ngModel)]="pessoa.titulo">
+  </mat-form-field> -->
+  
+  <mat-form-field>
+    <mat-label>Nome</mat-label>
+    <input matInput [(ngModel)]="pessoa.nome">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>CPF</mat-label>
+    <input matInput [dropSpecialCharacters]="false" mask="000.000.000-00" [formControl]="cpfFormControl" [errorStateMatcher]="matcher" [(ngModel)]="pessoa.cpf">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Choose a date</mat-label>
+    <input matInput [(ngModel)]="pessoa.dt_nasc" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="pessoa" cdkFocusInitial>Ok</button>
+</div>
