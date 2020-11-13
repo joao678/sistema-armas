@@ -23,7 +23,7 @@ export class PessoaCadastroDialog {
       if(data.pessoa) this.pessoa = data.pessoa;
     }
 
-    static cpfFormControl = new FormControl('', [
+    cpfFormControl = new FormControl('', [
       Validators.email,
     ]);
 

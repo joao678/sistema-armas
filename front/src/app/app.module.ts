@@ -23,7 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -32,7 +32,7 @@ import localePt from '@angular/common/locales/pt';
 import { ListaComponent } from './main/views/pessoas/lista/lista.component';
 import { PessoaCadastroDialog } from './main/views/pessoas/cadastro/template-cadastro.component';
 
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -66,6 +66,7 @@ registerLocaleData(localePt, 'pt-BR');
     RouterModule,
     FormsModule,
     NgxMaskModule.forRoot(),
+    ReactiveFormsModule
   ],
   
   providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}],
