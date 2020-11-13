@@ -20,6 +20,9 @@
   <mat-form-field>
     <mat-label>CPF</mat-label>
     <input matInput [dropSpecialCharacters]="false" mask="000.000.000-00" [formControl]="cpfFormControl" [errorStateMatcher]="matcher" [(ngModel)]="pessoa.cpf">
+    <mat-error *ngIf="cpfFormControl.hasError('cpfNotValid')">
+      O CPF é <strong>inválido</strong>
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
