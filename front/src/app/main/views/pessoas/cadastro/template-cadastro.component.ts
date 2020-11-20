@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListaComponent } from '../lista/lista.component';
 import { Pessoa } from '../models/pessoa.model';
 import { PessoaService } from '../services/pessoa.service';
+import { EnumEstados } from '../../../../utils/enums/EnumEstados';
 
 @Component({
   selector: 'dialog-cadastro',
@@ -26,6 +27,7 @@ export class PessoaCadastroDialog {
 
     cpfValidator = function():ValidatorFn {
           return (control: AbstractControl): Validators => {
+            if(control.value == null) return { cpfNotValid: true };
             const cpf = control.value.replace('.','').replace('.','').replace('-','');
             if (cpf) {
               let numbers, digits, sum, i, result, equalDigits;
@@ -78,6 +80,10 @@ export class PessoaCadastroDialog {
       this.cpfValidator()
     ]);
 
+    rgFormControl = new FormControl('', [
+      Validators.required
+    ]);
+
     static CpfErrorStateMatcher = class implements ErrorStateMatcher {
       isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const isSubmitted = form && form.submitted;
@@ -105,6 +111,9 @@ export class PessoaCadastroDialog {
 
     isNovo: boolean = false;
     matcher = new PessoaCadastroDialog.CpfErrorStateMatcher();
+
+    estadosValores = Object.values(EnumEstados).filter((val) => { return typeof val == 'number' })
+    estadosSiglas = Object.values(EnumEstados).filter((val) => { return typeof val == 'string' })
 
     ngOnInit() {
       this.isNovo = this.data.novo;

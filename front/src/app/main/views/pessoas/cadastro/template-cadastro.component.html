@@ -1,6 +1,12 @@
-<h1 mat-dialog-title>Tutorial</h1>
+<!-- *ngIf="!isNovo" -->
+<h1 mat-dialog-title>
+  <span>
+    <span *ngIf="!isNovo">Editar</span>
+    <span *ngIf="isNovo">Cadastrar</span>
+    Pessoa
+  </span>
+</h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
     
   <mat-form-field *ngIf="!isNovo">
     <mat-label>Id</mat-label>
@@ -23,6 +29,28 @@
     <mat-error *ngIf="cpfFormControl.hasError('cpfNotValid')">
       O CPF é <strong>inválido</strong>
     </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>RG</mat-label>
+    <input matInput [dropSpecialCharacters]="false" mask="00.000.000-0" [formControl]="rgFormControl" [errorStateMatcher]="matcher" [(ngModel)]="pessoa.rg">
+    <mat-error *ngIf="rgFormControl.hasError('required')">
+      O RG precisa ser <strong>informado</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Estado</mat-label>
+    <mat-select [(ngModel)]="pessoa.estado">
+      <mat-option *ngFor="let estado of estadosValores" [value]="estadosValores[estado]">
+        {{estadosSiglas[estado]}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Cidade</mat-label>
+    <input matInput [(ngModel)]="pessoa.cidade">
   </mat-form-field>
 
   <mat-form-field>

@@ -17,6 +17,8 @@ exports.create = (req, res) => {
         nome: req.body.nome,
         dt_nasc: req.body.dt_nasc,
         cpf: req.body.cpf,
+        rg: req.body.rg,
+        cidade: req.body.cidade
     };
   
     // Save Pessoa in the database

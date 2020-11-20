@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,6 +34,7 @@ import { ListaComponent } from './main/views/pessoas/lista/lista.component';
 import { PessoaCadastroDialog } from './main/views/pessoas/cadastro/template-cadastro.component';
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -61,6 +63,7 @@ registerLocaleData(localePt, 'pt-BR');
     MatSnackBarModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatSelectModule,
     MatInputModule,
     MatFormFieldModule,
     RouterModule,
