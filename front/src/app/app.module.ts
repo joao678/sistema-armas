@@ -33,7 +33,7 @@ import localePt from '@angular/common/locales/pt';
 import { ListaComponent } from './main/views/pessoas/lista/lista.component';
 import { PessoaCadastroDialog } from './main/views/pessoas/cadastro/template-cadastro.component';
 
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 registerLocaleData(localePt, 'pt-BR');
