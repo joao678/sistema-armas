@@ -8,6 +8,7 @@ import { PessoaService } from '../services/pessoa.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PessoaCadastroDialog } from '../cadastro/template-cadastro.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { EnumEstados } from 'src/app/utils/enums/EnumEstados';
 
 @Component({
   selector: 'app-lista',
@@ -20,14 +21,15 @@ export class ListaComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable) table: MatTable<Pessoa>;
   dataSource: ListaDataSource;
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'nome'];
-  selection = new SelectionModel<Pessoa>(false, []);
-
   constructor(public pessoaService: PessoaService, public dialog: MatDialog) { }
 
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  displayedColumns = ['id', 'nome', 'estado', 'cidade'];
+  selection = new SelectionModel<Pessoa>(false, []);
+  estadosSiglas = Object.values(EnumEstados).filter((val) => { return typeof val == 'string' })
+  
   ngOnInit() {
-    this.dataSource = new ListaDataSource(this.pessoaService); 
+    this.dataSource = new ListaDataSource(this.pessoaService);
   }
 
   pesquisarLista(refresh) {
