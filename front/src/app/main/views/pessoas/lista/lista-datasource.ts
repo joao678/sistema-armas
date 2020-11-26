@@ -12,9 +12,6 @@ import { PessoaService } from '../services/pessoa.service';
  * (including sorting, pagination, and filtering).
  */
 
- //var HTTP_CLIENT: HttpClient = new HttpClient(null);
- //const PRESET_DATA = new PessoaService(HTTP_CLIENT).getAllPessoas();  //pessoaService.getAllPessoas();
-
 export class ListaDataSource extends DataSource<Pessoa> {
   data: Pessoa[] = this.pessoaService.getAllPessoas();
   paginator: MatPaginator;

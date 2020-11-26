@@ -45,10 +45,10 @@ export class ListaComponent implements AfterViewInit, OnInit {
   }
 
   editarPessoa(row) {
-    const dialogRef = this.dialog.open(PessoaCadastroDialog, { data: { lista: this, novo: false, pessoa: Object.assign({}, row) } });
+    this.dialog.open(PessoaCadastroDialog, { height: PessoaCadastroDialog.altura, width: PessoaCadastroDialog.largura, data: { lista: this, novo: false, pessoa: Object.assign({}, row) } });
   }
 
   abrirCadastroNovo() {
-    const dialogRef = this.dialog.open(PessoaCadastroDialog, { data: { lista: this, novo: true } });
+    this.dialog.open(PessoaCadastroDialog, { height: PessoaCadastroDialog.altura, width: PessoaCadastroDialog.largura, data: { lista: this, novo: true } });
   }
 }

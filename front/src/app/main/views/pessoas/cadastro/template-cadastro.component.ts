@@ -1,14 +1,13 @@
-//private readonly API_URL = 'http://localhost:8080/api/tutorials';
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListaComponent } from '../lista/lista.component';
 import { Pessoa } from '../models/pessoa.model';
 import { PessoaService } from '../services/pessoa.service';
 import { EnumEstados } from '../../../../utils/enums/EnumEstados';
-import { CpfValidator } from 'src/app/utils/CpfValidator';
+import { CpfValidator } from 'src/app/utils/validators/CpfValidator';
+import { DefaultErrorStateMatcher } from 'src/app/utils/validators/DefaultErrorStateMatcher';
 
 @Component({
   selector: 'dialog-cadastro',
@@ -26,20 +25,27 @@ export class PessoaCadastroDialog {
       if(data.pessoa) this.pessoa = data.pessoa;
     }
 
-    cpfFormControl = new FormControl('', [
-      CpfValidator()
-    ]);
-
-    rgFormControl = new FormControl('', [
-      Validators.required
-    ]);
-
-    static CpfErrorStateMatcher = class implements ErrorStateMatcher {
-      isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        const isSubmitted = form && form.submitted;
-        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-      }
-    };
+    public static altura: string = '750px';
+    public static largura: string = '600px';
+    
+    cpfFormControl = new FormControl('', [CpfValidator(),Validators.required]);
+    rgFormControl = new FormControl('', [Validators.required]);
+    nomeFormControl = new FormControl('', [Validators.required]);
+    sexoFormControl = new FormControl('', [Validators.required]);
+    estadoFormControl = new FormControl('', [Validators.required]);
+    cidadeFormControl = new FormControl('', [Validators.required]);
+    telefoneFormControl = new FormControl('', [Validators.required]);
+    dt_nascFormControl = new FormControl('', [Validators.required]);
+    controles: FormControl[] = [
+      this.nomeFormControl,
+      this.cpfFormControl,
+      this.rgFormControl,
+      this.sexoFormControl,
+      this.estadoFormControl,
+      this.cidadeFormControl,
+      this.telefoneFormControl,
+      this.dt_nascFormControl
+    ];
 
     pessoa: Pessoa = { 
       id: null,
@@ -60,14 +66,13 @@ export class PessoaCadastroDialog {
     }; 
 
     isNovo: boolean = false;
-    matcher = new PessoaCadastroDialog.CpfErrorStateMatcher();
+    matcher = new DefaultErrorStateMatcher();
 
     estadosValores = Object.values(EnumEstados).filter((val) => { return typeof val == 'number' })
     estadosSiglas = Object.values(EnumEstados).filter((val) => { return typeof val == 'string' })
 
     ngOnInit() {
       this.isNovo = this.data.novo;
-      console.log(`Dialog config: ${this.data}`);
 
       this.dialogRef.afterClosed().subscribe(result => {
         if(result) {
@@ -83,6 +88,13 @@ export class PessoaCadastroDialog {
           });
         }
       });
+    }
+
+    onOkClick(result): void {
+      let isInvalid = !!this.controles.find(control => control.invalid);
+      if(!isInvalid) {
+        this.dialogRef.close(result);
+      }
     }
 
     onNoClick(): void {
