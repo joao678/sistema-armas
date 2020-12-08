@@ -3,10 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ListaDataSource } from './lista-datasource';
-import { Pessoa } from '../models/pessoa.model'
-import { PessoaService } from '../services/pessoa.service';
+import { Produto } from '../models/produto.model'
+import { ProdutoService } from '../services/produto.service';
 import { MatDialog } from '@angular/material/dialog';
-import { PessoaCadastroDialog } from '../cadastro/template-cadastro.component';
+import { ProdutoCadastroDialog } from '../cadastro/template-cadastro.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EnumEstados } from 'src/app/utils/enums/EnumEstados';
 
@@ -15,25 +15,25 @@ import { EnumEstados } from 'src/app/utils/enums/EnumEstados';
   templateUrl: './lista.component.html',
   styleUrls: ['./lista.component.scss']
 })
-export class ListaPessoaComponent implements AfterViewInit, OnInit {
+export class ListaProdutoComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<Pessoa>;
+  @ViewChild(MatTable) table: MatTable<Produto>;
   dataSource: ListaDataSource;
 
-  constructor(public pessoaService: PessoaService, public dialog: MatDialog) { }
+  constructor(public ProdutoService: ProdutoService, public dialog: MatDialog) { }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'nome', 'estado', 'cidade'];
-  selection = new SelectionModel<Pessoa>(false, []);
+  selection = new SelectionModel<Produto>(false, []);
   estadosSiglas = Object.values(EnumEstados).filter((val) => { return typeof val == 'string' })
   
   ngOnInit() {
-    this.dataSource = new ListaDataSource(this.pessoaService);
+    this.dataSource = new ListaDataSource(this.ProdutoService);
   }
 
   pesquisarLista(refresh) {
-    if(refresh) this.dataSource.data = this.pessoaService.getAllPessoas();
+    if(refresh) this.dataSource.data = this.ProdutoService.getAllProdutos();
     setTimeout(() => {
       this.paginator._changePageSize(this.paginator.pageSize);
     }, 250);
@@ -46,11 +46,11 @@ export class ListaPessoaComponent implements AfterViewInit, OnInit {
     this.pesquisarLista(false);
   }
 
-  editarPessoa(row) {
-    this.dialog.open(PessoaCadastroDialog, { height: PessoaCadastroDialog.altura, width: PessoaCadastroDialog.largura, data: { lista: this, novo: false, pessoa: Object.assign({}, row) } });
+  editarProduto(row) {
+    this.dialog.open(ProdutoCadastroDialog, { height: ProdutoCadastroDialog.altura, width: ProdutoCadastroDialog.largura, data: { lista: this, novo: false, Produto: Object.assign({}, row) } });
   }
 
   abrirCadastroNovo() {
-    this.dialog.open(PessoaCadastroDialog, { height: PessoaCadastroDialog.altura, width: PessoaCadastroDialog.largura, data: { lista: this, novo: true } });
+    this.dialog.open(ProdutoCadastroDialog, { height: ProdutoCadastroDialog.altura, width: ProdutoCadastroDialog.largura, data: { lista: this, novo: true } });
   }
 }

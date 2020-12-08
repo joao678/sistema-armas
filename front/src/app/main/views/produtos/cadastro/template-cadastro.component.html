@@ -1,0 +1,99 @@
+<h1 mat-dialog-title>
+  <span>
+    <span *ngIf="!isNovo">Editar</span>
+    <span *ngIf="isNovo">Cadastrar</span>
+    Produto
+  </span>
+</h1>
+
+  <div mat-dialog-content>
+    
+  <mat-form-field *ngIf="!isNovo">
+    <mat-label>Código</mat-label>
+    <input disabled matInput [(ngModel)]="Produto.id">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nome</mat-label>
+    <input matInput [(ngModel)]="Produto.nome" [formControl]="nomeFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="nomeFormControl.hasError('required')">
+      O Nome precisa ser <strong>informado</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+    <mat-label>Sexo</mat-label>
+    <input matInput [(ngModel)]="Produto.sexo" [formControl]="sexoFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="sexoFormControl.hasError('required')">
+      O Sexo precisa ser <strong>informado</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>CPF</mat-label>
+    <input matInput [dropSpecialCharacters]="false" mask="000.000.000-00" [formControl]="cpfFormControl" [errorStateMatcher]="matcher" [(ngModel)]="Produto.cpf">
+    <mat-error *ngIf="cpfFormControl.hasError('cpfNotValid')">
+      O CPF é <strong>inválido</strong>
+    </mat-error>
+    <mat-error *ngIf="cpfFormControl.hasError('required')">
+      O CPF precisa ser <strong>informado</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>RG</mat-label>
+    <input matInput [dropSpecialCharacters]="false" mask="00.000.000-0" [formControl]="rgFormControl" [errorStateMatcher]="matcher" [(ngModel)]="Produto.rg">
+    <mat-error *ngIf="rgFormControl.hasError('required')">
+      O RG precisa ser <strong>informado</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Estado</mat-label>
+    <mat-select [(ngModel)]="Produto.estado" [formControl]="estadoFormControl" [errorStateMatcher]="matcher">
+      <mat-option *ngFor="let estado of estadosValores" [value]="estadosValores[estado]">
+        {{estadosSiglas[estado]}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="estadoFormControl.hasError('required')">
+      O Estado precisa ser <strong>informado</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Cidade</mat-label>
+    <input matInput [(ngModel)]="Produto.cidade" [formControl]="cidadeFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="cidadeFormControl.hasError('required')">
+      A Cidade precisa ser <strong>informada</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Telefone</mat-label>
+    <input matInput mask="(00) 00000-0000" [(ngModel)]="Produto.telefone" [formControl]="telefoneFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="telefoneFormControl.hasError('required')">
+      O Telefone precisa ser <strong>informado</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Data de nascimento</mat-label>
+    <input matInput [(ngModel)]="Produto.dt_nasc" [matDatepicker]="picker" [formControl]="dt_nascFormControl" [errorStateMatcher]="matcher">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="dt_nascFormControl.hasError('required')">
+      A Data de nascimento precisa ser <strong>informada</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Observação</mat-label>
+    <textarea matInput [(ngModel)]="Produto.obs"></textarea>
+  </mat-form-field> -->
+
+  </div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button (click)="onOkClick(Produto)">Ok</button>
+</div>

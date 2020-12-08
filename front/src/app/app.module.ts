@@ -30,11 +30,13 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
-import { ListaComponent } from './main/views/pessoas/lista/lista.component';
+import { ListaPessoaComponent } from './main/views/pessoas/lista/lista.component';
 import { PessoaCadastroDialog } from './main/views/pessoas/cadastro/template-cadastro.component';
 
-import { NgxMaskModule } from 'ngx-mask';
+import { ListaProdutoComponent } from './main/views/produtos/lista/lista.component';
+import { ProdutoCadastroDialog } from './main/views/produtos/cadastro/template-cadastro.component';
 
+import { NgxMaskModule } from 'ngx-mask';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -42,8 +44,10 @@ registerLocaleData(localePt, 'pt-BR');
   declarations: [
     AppComponent,
     MainComponent,
-    ListaComponent,
+    ListaPessoaComponent,
+    ListaProdutoComponent,
     PessoaCadastroDialog,
+    ProdutoCadastroDialog,
   ],
   imports: [
     BrowserModule,

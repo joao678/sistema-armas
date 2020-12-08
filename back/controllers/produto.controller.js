@@ -1,8 +1,8 @@
 const db = require("../models");
-const Pessoa = db.pessoas;
+const Produto = db.produtos;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Pessoa
+// Create and Save a new Produto
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.nome) {
@@ -12,136 +12,124 @@ exports.create = (req, res) => {
       return;
     }
   
-    // Create a Pessoa
-    const pessoa = {
-        /*nome: req.body.nome,
-        dt_nasc: req.body.dt_nasc,
-        cpf: req.body.cpf,
-        rg: req.body.rg,
-        cidade: req.body.cidade*/
-
+    // Create a Produto
+    //TODO
+    const produto = {
         nome: req.body.nome,
+        dt_nasc: req.body.dt_nasc,
         cpf: req.body.cpf,
         rg: req.body.rg,
-        cidade: req.body.cidade,
-        estado: req.body.estado,
-        endereco: req.body.endereco,
-        telefone: req.body.telefone,
-        celular: req.body.celular,
-        email: req.body.email,
-        dt_nasc: req.body.dt_nasc,
-        sexo: req.body.sexo,
-        obs: req.body.obs,
+        cidade: req.body.cidade
     };
   
-    // Save Pessoa in the database
-    Pessoa.create(pessoa)
+    // Save Produto in the database
+    Produto.create(produto)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the Pessoa."
+            err.message || "Some error occurred while creating the Produto."
         });
       });
   };
 
-// Retrieve all Pessoas from the database.
+// Retrieve all Produtos from the database.
 exports.findAll = (req, res) => {
     const nome = req.query.nome;
     var condition = nome ? { nome: { [Op.like]: `%${nome}%` } } : null;
   
-    Pessoa.findAll({ where: condition })
+    Produto.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving Pessoas."
+            err.message || "Some error occurred while retrieving Produtos."
         });
       });
   };
 
-// Find a single Pessoa with an id
+// Find a single Produto with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
   
-    Pessoa.findByPk(id)
+    Produto.findByPk(id)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Pessoa with id=" + id
+          message: "Error retrieving Produto with id=" + id
         });
       });
   };
 
-// Update a Pessoa by the id in the request
+// Update a Produto by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
   
-    Pessoa.update(req.body, {
+    Produto.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Pessoa was updated successfully."
+            message: "Produto was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update Pessoa with id=${id}. Maybe Pessoa was not found or req.body is empty!`
+            message: `Cannot update Produto with id=${id}. Maybe Produto was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Pessoa with id=" + id
+          message: "Error updating Produto with id=" + id
         });
       });
   };
 
-// Delete a Pessoa with the specified id in the request
+// Delete a Produto with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
   
-    Pessoa.destroy({
+    Produto.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Pessoa was deleted successfully!"
+            message: "Produto was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Cannot delete Pessoa with id=${id}. Maybe Pessoa was not found!`
+            message: `Cannot delete Produto with id=${id}. Maybe Produto was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Pessoa with id=" + id
+          message: "Could not delete Produto with id=" + id
         });
       });
   };
 
-// Delete all Pessoas from the database.
+// Delete all Produtos from the database.
 exports.deleteAll = (req, res) => {
-    Pessoa.destroy({
+    Produto.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Pessoas were deleted successfully!` });
+        res.send({ message: `${nums} Produtos were deleted successfully!` });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all Pessoas."
+            err.message || "Some error occurred while removing all Produtos."
         });
       });
   };

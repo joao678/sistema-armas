@@ -2,9 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ListaPessoaComponent } from '../lista/lista.component';
-import { Pessoa } from '../models/pessoa.model';
-import { PessoaService } from '../services/pessoa.service';
+import { ListaProdutoComponent } from '../lista/lista.component';
+import { Produto } from '../models/produto.model';
+import { ProdutoService } from '../services/produto.service';
 import { EnumEstados } from '../../../../utils/enums/EnumEstados';
 import { CpfValidator } from 'src/app/utils/validators/CpfValidator';
 import { DefaultErrorStateMatcher } from 'src/app/utils/validators/DefaultErrorStateMatcher';
@@ -15,14 +15,14 @@ import { DefaultErrorStateMatcher } from 'src/app/utils/validators/DefaultErrorS
   styleUrls: ['./template-cadastro.component.scss']
 })
 
-export class PessoaCadastroDialog {
+export class ProdutoCadastroDialog {
     constructor(
-      public dialogRef: MatDialogRef<PessoaCadastroDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: { lista: ListaPessoaComponent, novo: boolean, pessoa: Pessoa },
+      public dialogRef: MatDialogRef<ProdutoCadastroDialog>,
+      @Inject(MAT_DIALOG_DATA) public data: { lista: ListaProdutoComponent, novo: boolean, Produto: Produto },
       private snackBar: MatSnackBar,
-      private pessoaService: PessoaService
+      private ProdutoService: ProdutoService
     ) {
-      if(data.pessoa) this.pessoa = data.pessoa;
+      if(data.Produto) this.Produto = data.Produto;
     }
 
     public static altura: string = '750px';
@@ -38,29 +38,25 @@ export class PessoaCadastroDialog {
     dt_nascFormControl = new FormControl('', [Validators.required]);
     controles: FormControl[] = [
       this.nomeFormControl,
-      this.cpfFormControl,
+      /*this.cpfFormControl,
       this.rgFormControl,
       this.sexoFormControl,
       this.estadoFormControl,
       this.cidadeFormControl,
       this.telefoneFormControl,
-      this.dt_nascFormControl
+      this.dt_nascFormControl*/
     ];
 
-    pessoa: Pessoa = { 
+    Produto: Produto = { 
       id: null,
       nome: '',
-      cpf: '',
-      rg: '',
-      cidade: '',
-      estado: null,
-      endereco: '',
-      telefone: '',
-      celular: '',
-      email: '',
-      dt_nasc: new Date(),
-      sexo: '',
-      obs: '',
+      id_grupo_produto: null,
+      nr_serie: '',
+      ds_produto: '',
+      inf_adicionais: '',
+      id_fornecedor: null,
+      valor_unitario: null,
+      id_situacao: null,
       created_at: '',
       updated_at: ''
     }; 
@@ -76,13 +72,13 @@ export class PessoaCadastroDialog {
 
       this.dialogRef.afterClosed().subscribe(result => {
         if(result) {
-          this.pessoaService[this.pessoa.id ? "updatePessoa": "addPessoa"](this.pessoa,()=> {
+          this.ProdutoService[this.Produto.id ? "updateProduto": "addProduto"](this.Produto,()=> {
             this.data.lista.pesquisarLista(true);
-            this.snackBar.open(this.isNovo ? "Pessoa adicionada com sucesso!" : "Pessoa atualizada com sucesso!", "OK", {
+            this.snackBar.open(this.isNovo ? "Produto adicionada com sucesso!" : "Produto atualizada com sucesso!", "OK", {
               duration: 1600, horizontalPosition: "center", verticalPosition: "top"
             });
           },()=> {
-            this.snackBar.open("Ocorreu um erro ao adicionar uma pessoa", "OK", {
+            this.snackBar.open("Ocorreu um erro ao adicionar uma Produto", "OK", {
               duration: 1600, horizontalPosition: "center", verticalPosition: "top"
             });
           });
